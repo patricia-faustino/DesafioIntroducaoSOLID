@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { User } from "../../model/User";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 
@@ -9,8 +10,14 @@ interface IRequest {
 class CreateUserUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
-  execute({ email, name }: IRequest): User {
-    // Complete aqui
+  execute({ email, name }: IRequest): User{
+    const userAlreadExists = this.usersRepository.findByEmail(email);
+    
+    if (userAlreadExists){
+      throw new Error("Usuário com e-mail já cadastrado!");
+    } 
+    const user = this.usersRepository.create({ name, email });
+    return user;
   }
 }
 
