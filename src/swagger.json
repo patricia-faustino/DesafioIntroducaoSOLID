@@ -1,0 +1,231 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Atlas",
+    "description": "Essa é uma documentação sobre a Alias API.",
+    "version": "1.0.0",
+    "contact": {
+      "email": "patricia-faustino@gmail.com"
+    }
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Cria um novo usuário",
+        "description": "Cria um novo usuário",
+        "requestBody": {
+          "content": {
+            "aplication/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Patricia Faustino",
+                  "email": "patricia-faustino@gmail.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sucesso",
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400":{
+            "description": "Usuário não existe. Tente novamente."
+          }
+        }
+      },
+      "get": {
+        "tags": ["users"],
+        "summary": "Lista todos os usuários",
+        "description": "Lista todos os usuários",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação realizada com sucesso",
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Usuário sem permissão ou usuário não encontrado."
+          }
+        }
+      }
+
+    },
+    "/users/{user_id}": {
+      "get": {
+        "tags": ["users"],
+        "summary": "Mostra usuário com id informado",
+        "description": "Mostra usuário com id informado",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "Id do usuário",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação realizada com sucesso",
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404":{
+            "description": "Usuário não encontrado."
+          }
+        }
+      }
+    },
+    "/users/{user_id}/admin":{
+      "patch":{
+        "tags":["users"],
+        "summary": "Torna usuário administrador",
+        "description": "Torna usuário administrador",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação realizada com sucesso",
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado."
+          }
+        }
+      }
+    }
+  }
+}
